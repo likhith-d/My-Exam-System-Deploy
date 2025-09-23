@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'online_exam_db'
+      MYSQL_ROOT_PASSWORD: 'root_password'
+    volumes:
+      - exam-mysql-data:/var/lib/mysql
+    networks:
+      - exam-network
+
+  exam-backend:
+    build: ./online\ exam\ system\ backend
+    restart: always
+    depends_on:
+      - mysql-db
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/online_exam_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root_password
+    networks:
+      - exam-network
+
+  exam-frontend:
+    build: ./online\ exam\ system\ frontend
+    restart: always
+    depends_on:
+      - exam-backend
+    ports:
+      - "80:80"
+    networks:
+      - exam-network
+
+volumes:
+  exam-mysql-data:
+
+networks:
+  exam-network:
+    driver: bridge
