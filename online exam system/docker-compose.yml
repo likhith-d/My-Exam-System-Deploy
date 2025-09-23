@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mysql-db:
     image: mysql:8.0
@@ -13,7 +11,7 @@ services:
       - exam-network
 
   exam-backend:
-    build: ./online\ exam\ system\ backend
+    build: './online exam system backend'  # <-- CORRECTED PATH
     restart: always
     depends_on:
       - mysql-db
@@ -27,7 +25,7 @@ services:
       - exam-network
 
   exam-frontend:
-    build: ./online\ exam\ system\ frontend
+    build: './online exam system frontend' # <-- CORRECTED PATH
     restart: always
     depends_on:
       - exam-backend

@@ -4,6 +4,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+# ADD THIS LINE to allow the older crypto algorithm
+ENV NODE_OPTIONS=--openssl-legacy-provider
 RUN npm run build
 
 # Stage 2: Serve the application using Nginx
