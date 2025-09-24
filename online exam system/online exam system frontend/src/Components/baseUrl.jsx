@@ -1,3 +1,3 @@
 
-   const baseUrl = "http://localhost:8081";
+   const baseUrl = "";
    export default baseUrl;
