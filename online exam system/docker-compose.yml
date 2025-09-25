@@ -7,11 +7,13 @@ services:
       MYSQL_ROOT_PASSWORD: 'root_password'
     volumes:
       - exam-mysql-data:/var/lib/mysql
+      # This new line loads your admin user data on first startup
+      - ./online\ exam\ system\ backend/src/main/resources/import.sql:/docker-entrypoint-initdb.d/import.sql
     networks:
       - exam-network
 
   exam-backend:
-    build: './online exam system backend'  # <-- CORRECTED PATH
+    build: ./online\ exam\ system\ backend
     restart: always
     depends_on:
       - mysql-db
@@ -25,7 +27,7 @@ services:
       - exam-network
 
   exam-frontend:
-    build: './online exam system frontend' # <-- CORRECTED PATH
+    build: ./online\ exam\ system\ frontend
     restart: always
     depends_on:
       - exam-backend
